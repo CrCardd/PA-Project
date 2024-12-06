@@ -13,7 +13,7 @@ import { router } from "expo-router";
 
 export default function TabTwoScreen() {
   const onPress = () => {
-    router.push("/explore");
+    router.push("/home");
   };
 
   return (
@@ -24,9 +24,9 @@ export default function TabTwoScreen() {
       />
       <View style={styles.authContainer}>
    
-        <AuthButton label="SIGN IN" variant="primary" onPress={() => {}} />
+        <AuthButton label="SIGN IN" variant="primary" onPress={onPress} />
 
-        <AuthButton label="SIGN UP" variant="secondary" onPress={() => {}} />
+        <AuthButton label="SIGN UP" variant="secondary" onPress={onPress} />
 
         <TouchableOpacity
           accessibilityRole="button"

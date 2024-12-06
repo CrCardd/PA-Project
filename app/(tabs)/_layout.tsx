@@ -33,6 +33,15 @@ export default function TabLayout() {
         options={{
           tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
         }}
+        
+      />
+
+<Tabs.Screen
+        name="home"
+        options={{
+          tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
+        }}
+        
       />
     </Tabs>
   );
