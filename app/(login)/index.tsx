@@ -1,3 +1,4 @@
+
 import { StyleSheet, View, Image, TouchableOpacity, Text } from 'react-native';
 
 export default function HomeScreen() {
