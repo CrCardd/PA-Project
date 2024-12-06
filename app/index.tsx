@@ -26,7 +26,7 @@ export default function TabTwoScreen() {
    
         <AuthButton label="SIGN IN" variant="primary" onPress={() => {}} />
 
-        <AuthButton label="SIGN UP" variant="secondary" onPress={() => {}} />
+        <AuthButton label="SIGN UP" variant="secondary" onPress={() => { router.push("/register")}} />
 
         <TouchableOpacity
           accessibilityRole="button"
