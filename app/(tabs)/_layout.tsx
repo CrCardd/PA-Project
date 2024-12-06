@@ -24,9 +24,15 @@ export default function TabLayout() {
       }}>
       <Tabs.Screen
         name="index" 
+        options={{
+          tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
+        }}
       />
       <Tabs.Screen
         name="explore"
+        options={{
+          tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
+        }}
       />
     </Tabs>
   );
