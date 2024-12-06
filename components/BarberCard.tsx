@@ -111,6 +111,6 @@ const styles = StyleSheet.create({
   bookButtonText: {
     fontFamily: "Viga",
     fontSize: 14,
-    color: "#000000",
+    color: "#FFFFFFFF",
   },
 });

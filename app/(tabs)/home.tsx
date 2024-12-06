@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, ImageSourcePropType } from 'react-native';
+import { View, Text, Image, StyleSheet, ScrollView, ImageSourcePropType, TouchableOpacity } from 'react-native';
 import { BarberCard } from '@/components/BarberCard';
 import { NavigationBar } from '@/components/NavigationBar';
+import { router } from 'expo-router';
 
 interface BarberShopData {
     id: string;
@@ -36,15 +37,23 @@ export default function TabTwoScreen() {
   
   };
 
+  const back = () => {
+    router.push("/explore")
+  };
+
   return (
+    <ScrollView>
+
       <View style={styles.screenContainer}>
         <View style={styles.header}>
+            <TouchableOpacity onPress={back}>
           <Image
             source={require("@/assets/images/seta.svg")}
             style={styles.menuIcon}
             accessible={true}
             accessibilityLabel="Menu"
           />
+            </TouchableOpacity>
           <Text style={styles.welcomeText}>Welcome Youlakou</Text>
           <Image
             source={require("@/assets/images/Options.svg")}
@@ -54,7 +63,7 @@ export default function TabTwoScreen() {
           />
         </View>
 
-        {/* <Text style={styles.tagline}>
+        <Text style={styles.tagline}>
           Sharp and stylish! Book your barber appointment now..
         </Text>
 
@@ -90,8 +99,9 @@ export default function TabTwoScreen() {
           ))}
         </View>
 
-        <NavigationBar /> */}
+        <NavigationBar />
       </View>
+    </ScrollView>
 
   );
 };
