@@ -8,125 +8,87 @@ import {
   TouchableOpacity,
   TextInput,
 } from "react-native";
-import { SocialIcon } from "@/components/SocialIcon";
 import { AuthButton } from "@/components/AuthButton";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 
 export default function TabTwoScreen() {
-  const onPress = () => {
-    router.push("/explore");
-  };
+  // const onPress = () => {
+  //   router.push("/index");
+  // };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Image
-        source={require("@/assets/images/barbeiro.png")}
-        style={styles.backgroundImage}
-      />
-      <View style={styles.authContainer}>
-{/*    
-        <AuthButton label="SIGN IN" variant="primary" onPress={() => {}} />
-        <AuthButton label="SIGN UP" variant="secondary" onPress={() => {}} /> */}
-        <TextInput
-          placeholder="Email"
-          style={styles.inputs}
-        />
-        <TextInput
-          placeholder="Password"
-          style={styles.inputs}
-        />
-
-        <TouchableOpacity
-          accessibilityRole="button"
-          accessibilityLabel="Forgot password"
-        >
-          <Text style={styles.forgotPassword}>Forgot Your Password ?</Text>
-        </TouchableOpacity>
-
-        <View style={styles.socialIconsContainer}>
-          <SocialIcon
-            key={1}
-            imageUrl={require("@/assets/images/facebook.svg")}
-            alt={"icon.alt"}
-            onPress={onPress}
+    <View style={styles.container}>
+      <View style={styles.background}>
+        <Image
+          source={require("@/assets/images/barbeiro.png")}
+          style={styles.backgroundImage}
           />
-
-          <SocialIcon
-            key={2}
-            imageUrl={require("@/assets/images/google.svg")}
-            alt={"icon.alt"}
-            onPress={onPress}
-          />
-
-          <SocialIcon
-            key={3}
-            imageUrl={require("@/assets/images/twitter.svg")}
-            alt={"icon.alt"}
-            onPress={onPress}
-          />
-        </View>
       </View>
-    </ScrollView>
+      <View style={styles.regContainer}>
+
+          <View style={styles.regInputs}>
+            <TextInput
+              placeholder="Name"
+              style={styles.inputs}
+            />
+            <TextInput
+              placeholder="Email"
+              style={styles.inputs}
+            />
+            <TextInput
+              placeholder="Password"
+              style={styles.inputs}
+              textContentType="password"
+              secureTextEntry
+            />
+          </View>
+
+          <View style={styles.createButton}>
+            <AuthButton label="CREATE ACCOUNT" variant="primary" onPress={() => {router.push('/')}} />
+          </View>
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  inputs: {
-    backgroundColor: "#f5f5f5",
-    padding: 8,
-    borderRadius: 16,
-    width: 200
-  },
   container: {
-    borderRadius: 30,
+    flex: 1,
     display: 'flex',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    maxWidth: 480,
-    width: '100%',
-    paddingBottom: 60,
-    flexDirection: 'column',
-    overflow: 'hidden',
-    alignItems: 'center',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-    authContainer: {
-    marginHorizontal: "auto",
-    maxWidth: 480,
-    width: "100%",
-    paddingBottom: 60,
-    alignItems: "center",
-    position: "relative", // To position the image behind
-    backgroundColor: "#131212FF"
+  background: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    display: 'flex',
+    justifyContent: 'center',
+    backgroundColor: '#0f0f0f'
+  },
+  regContainer: {
+    
+  },
+  inputs: {
+    backgroundColor: '#ffffff',
+    borderRadius: 10,
+    padding: 10,
+    width: 250
+  },
+  tapaBuraco : {
+    width: '100%',
+    height: '20%'
   },
   backgroundImage: {
-    alignSelf: 'stretch',
-    position: 'relative',
-    display: 'flex',
-    aspectRatio: 0.6,
-    width: '100%',
-    paddingHorizontal: 76,
-    paddingTop: 590,
-    paddingBottom: 22,
-    flexDirection: 'column',
-    alignItems: 'stretch',
+    position: 'absolute',
+    top: 0,
+    opacity: 0.99
   },
-  forgotPassword: {
-    marginTop: 22,
+  regInputs: {
+    gap: 10
   },
-  forgotPasswordText: {
-    color: '#FFFFFF',
-    fontSize: 11,
-    fontFamily: 'Segoe UI',
-    fontWeight: '400',
-  },
-  socialIconsContainer: {
-    display: 'flex',
-    marginTop: 17,
-    width: 118,
-    maxWidth: '100%',
-    gap: 12,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
+  createButton: {
+    position: 'absolute',
+    bottom: '-160%'
+  }
 });

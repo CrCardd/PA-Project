@@ -12,9 +12,6 @@ import { AuthButton } from "@/components/AuthButton";
 import { router } from "expo-router";
 
 export default function TabTwoScreen() {
-  const onPress = () => {
-    router.push("/explore");
-  };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
@@ -36,7 +33,7 @@ export default function TabTwoScreen() {
         </TouchableOpacity>
 
         <View style={styles.socialIconsContainer}>
-          <SocialIcon
+          {/* <SocialIcon
             key={1}
             imageUrl={require("@/assets/images/facebook.svg")}
             alt={"icon.alt"}
@@ -55,7 +52,7 @@ export default function TabTwoScreen() {
             imageUrl={require("@/assets/images/twitter.svg")}
             alt={"icon.alt"}
             onPress={onPress}
-          />
+          /> */}
         </View>
       </View>
     </ScrollView>
