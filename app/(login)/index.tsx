@@ -14,7 +14,7 @@ import { router } from "expo-router";
 export default function TabTwoScreen() {
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Image
         source={require("@/assets/images/barbeiro.png")}
         style={styles.backgroundImage}
@@ -55,7 +55,7 @@ export default function TabTwoScreen() {
           /> */}
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 

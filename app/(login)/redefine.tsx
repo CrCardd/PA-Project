@@ -7,14 +7,29 @@ import {
   ScrollView,
   TouchableOpacity,
   TextInput,
+  Platform,
 } from "react-native";
 import { AuthButton } from "@/components/AuthButton";
 import { Link, router } from "expo-router";
+import { useState } from "react";
+import {
+    CodeField,
+    Cursor,
+    useBlurOnFulfill,
+    useClearByFocusCell,
+  } from 'react-native-confirmation-code-field';
 
 export default function TabTwoScreen() {
-  // const onPress = () => {
-  //   router.push("/index");
-  // };
+    const CELL_COUNT = 6;
+
+    const [value, setValue] = useState('');
+    const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+    const [props, getCellOnLayoutHandler] = useClearByFocusCell({
+      value,
+      setValue,
+    });
+
+
 
   return (
     <View style={styles.container}>
@@ -88,5 +103,20 @@ const styles = StyleSheet.create({
   createButton: {
     position: 'absolute',
     bottom: '-160%'
-  }
+  },
+
+
+  codeFieldRoot: {marginTop: 20},
+  cell: {
+    width: 40,
+    height: 40,
+    lineHeight: 38,
+    fontSize: 24,
+    borderWidth: 2,
+    borderColor: '#00000030',
+    textAlign: 'center',
+  },
+  focusCell: {
+    borderColor: '#000',
+  },
 });
