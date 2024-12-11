@@ -58,12 +58,14 @@ const styles = StyleSheet.create({
   },
   cardWrapper: {
     borderRadius: 12,
-    padding: 8,
+    padding: 16,
+    marginRight:120
   },
   shopImage: {
     borderRadius: 12,
     aspectRatio: 0.96,
-    width: "100%",
+    width: "200%",
+    height: "72%"
   },
   statusContainer: {
     marginTop: 4,
