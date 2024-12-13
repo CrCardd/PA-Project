@@ -40,7 +40,7 @@ export default function TabTwoScreen() {
           </View>
 
           <View style={styles.createButton}>
-            <AuthButton label="SIGN ACCOUNT" variant="primary" onPress={() => {router.push('/')}} />
+            <AuthButton label="SIGN ACCOUNT" variant="primary" onPress={() => {router.push('/(tabs)/home')}} />
             <AuthButton label="forgive password" variant="secondary" onPress={() => {router.push('/forgive')}} />
           </View>
       </View>

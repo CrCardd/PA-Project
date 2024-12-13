@@ -24,7 +24,7 @@ export default function TabTwoScreen() {
       />
       <View style={styles.authContainer}>
    
-        <AuthButton label="SIGN IN" variant="primary" onPress={() => { router.push('/(tabs)/home')}} />
+        <AuthButton label="SIGN IN" variant="primary" onPress={() => { router.push('/login')}} />
 
         <AuthButton label="SIGN UP" variant="secondary" onPress={() => { router.push("/register")}} />
 

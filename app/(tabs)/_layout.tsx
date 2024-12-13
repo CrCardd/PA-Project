@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 
 import { Colors } from '@/constants/Colors';
@@ -23,37 +23,13 @@ export default function TabLayout() {
         }),
       }}>
       <Tabs.Screen
-        name="index" 
+        name="home" 
         options={{
           tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
         }}
       />
       <Tabs.Screen
-        name="register"
-        options={{
-          tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
-        }}
-      />
-      <Tabs.Screen
-        name="forgive"
-        options={{
-          tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
-        }}
-      />
-      <Tabs.Screen
-        name="login"
-        options={{
-          tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
-        }}
-      />
-      <Tabs.Screen
-        name="code"
-        options={{
-          tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
-        }}
-      />
-      <Tabs.Screen
-        name="redefine"
+        name="schedule"
         options={{
           tabBarStyle: { display: 'none' }, // Oculta as tabs nesta rota
         }}
@@ -61,3 +37,9 @@ export default function TabLayout() {
     </Tabs>
   );
 }
+
+const styles = StyleSheet.create({
+  tabs: {
+
+  }
+})
