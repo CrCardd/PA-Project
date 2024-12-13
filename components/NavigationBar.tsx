@@ -17,7 +17,6 @@ interface NavigationIconProps {
 export const NavigationBar: React.FC = () => {
   return (
     <View style={styles.navigationContainer}>
-      <NavigationIcon icon="favorite" label="Favorite" />
       <NavigationIcon icon="news" label="News" />
       <NavigationIcon icon="home" label="Home" isActive />
       <NavigationIcon icon="stats" label="Statics" />

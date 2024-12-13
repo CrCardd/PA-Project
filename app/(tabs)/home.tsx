@@ -49,6 +49,10 @@ export default function TabTwoScreen() {
     router.push("/explore");
   };
 
+  const schedule = () => {
+    router.push("/schedule");
+  };
+
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
       <View style={styles.header}>
@@ -117,7 +121,7 @@ export default function TabTwoScreen() {
               accessible={true}
               accessibilityLabel={`barber shop image`}
             />
-            <TouchableOpacity
+            <View
               style={styles.bookButton2}
               // onPress={() => onBookNow(shop.id)}
               accessible={true}
@@ -125,7 +129,7 @@ export default function TabTwoScreen() {
               accessibilityRole="button"
             >
               <Text style={styles.bookButtonText2}>Book Now</Text>
-            </TouchableOpacity>
+            </View>
           </View>
         </View>
    
@@ -211,7 +215,7 @@ const styles = StyleSheet.create({
   },
   barberList: {
     width: "100%",
-    marginBottom: 20,
+    // marginBottom: 20,
   },
   cardContainer: {
     marginRight: 15, // Ajuste o espaçamento entre os cards
@@ -243,12 +247,11 @@ const styles = StyleSheet.create({
   },
   cardContainer2: {
     marginRight: 190,
-    position : 'relative'
+  position: "relative",
      // Ajuste o espaçamento entre os cards
   },
   cardWrapper2: {
     borderRadius: 12,
-    position : 'relative'
   },
   shopImage2: {
     borderRadius: 12,
@@ -268,9 +271,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 105,
     height:35,
-       position: 'absolute',
-    top: -170,
-    left: -32,
+    // position: 'absolute',
+    // top: 0,
+    // left: 0
   },
   bookButtonText2: {
     fontFamily: "Viga",
@@ -286,4 +289,5 @@ const styles = StyleSheet.create({
     left: 215,
     zIndex: 200
   },
+
 });
