@@ -42,7 +42,7 @@ const barberShops: BarberShopData[] = [
 
 export default function TabTwoScreen() {
   const handleBookNow = (shopId: string) => {
-    // Função de reserva (não implementada, mas pode ser ajustada)
+    
   };
 
   const back = () => {
