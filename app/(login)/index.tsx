@@ -12,6 +12,9 @@ import { AuthButton } from "@/components/AuthButton";
 import { router } from "expo-router";
 
 export default function TabTwoScreen() {
+  const onPress = () => {
+    router.push("/home");
+  };
 
   return (
     <View style={styles.container}>
@@ -21,9 +24,9 @@ export default function TabTwoScreen() {
       />
       <View style={styles.authContainer}>
    
-        <AuthButton label="SIGN IN" variant="primary" onPress={() => { router.push("/login")}} />
+        <AuthButton label="SIGN IN" variant="primary" onPress={onPress} />
 
-        <AuthButton label="SIGN UP" variant="secondary" onPress={() => { router.push("/register")}} />
+        <AuthButton label="SIGN UP" variant="secondary" onPress={onPress} />
 
         <TouchableOpacity
           accessibilityRole="button"
