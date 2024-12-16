@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { BarberCard } from "@/components/BarberCard";
-import { NavigationBar } from "@/components/NavigationBar";
 import { router } from "expo-router";
 
 interface BarberShopData {
@@ -45,13 +44,7 @@ export default function TabTwoScreen() {
     
   };
 
-  const back = () => {
-    router.push("/explore");
-  };
 
-  const schedule = () => {
-    router.push("/schedule");
-  };
 
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
@@ -132,9 +125,7 @@ export default function TabTwoScreen() {
             </View>
           </View>
         </View>
-   
-
-      <NavigationBar />
+  
     </ScrollView>
   );
 }

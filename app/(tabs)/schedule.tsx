@@ -9,7 +9,6 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { BarberCard } from "@/components/BarberCard";
-import { NavigationBar } from "@/components/NavigationBar";
 import { router } from "expo-router";
 
 interface BarberShopData {
@@ -45,9 +44,6 @@ export default function TabTwoScreen() {
     // Função de reserva (não implementada, mas pode ser ajustada)
   };
 
-  const back = () => {
-    router.push("/explore");
-  };
 
   const schedule = () => {
     router.push("/schedule");
@@ -134,7 +130,6 @@ export default function TabTwoScreen() {
         </View>
    
 
-      <NavigationBar />
     </ScrollView>
   );
 }
