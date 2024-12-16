@@ -7,10 +7,18 @@ import {
   ScrollView,
   ImageSourcePropType,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import { BarberCard } from "@/components/BarberCard";
 import { NavigationBar } from "@/components/NavigationBar";
 import { router } from "expo-router";
+import { Calendar } from "react-native-calendars";
+import { useState } from "react";
+import {
+  ImagePickerResponse,
+  launchImageLibrary,
+} from "react-native-image-picker";
+import RNFS from "react-native-fs";
 
 interface BarberShopData {
   id: string;
@@ -41,7 +49,10 @@ const barberShops: BarberShopData[] = [
 ];
 
 export default function TabTwoScreen() {
+  const [selected, setSelected] = useState("");
+
   const handleBookNow = (shopId: string) => {
+    schedule();
     // Função de reserva (não implementada, mas pode ser ajustada)
   };
 
@@ -51,6 +62,25 @@ export default function TabTwoScreen() {
 
   const schedule = () => {
     router.push("/schedule");
+  };
+
+  const [imageUri, setImageUri] = useState<string | null>(null);
+
+  // Função para abrir a galeria e escolher uma imagem
+  const handleImageSelect = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const file = event.target.files?.[0]; // Pega o primeiro arquivo selecionado
+    console.log(file);
+
+    if (file) {
+      const reader = new FileReader(); // Criando um FileReader para ler a imagem
+      reader.onloadend = () => {
+        // Quando a leitura terminar, atualiza o estado com o URI da imagem
+        setImageUri(reader.result as string);
+      };
+      reader.readAsDataURL(file); // Lê o arquivo como uma URL base64
+    }
   };
 
   return (
@@ -63,77 +93,67 @@ export default function TabTwoScreen() {
           accessibilityLabel="Notifications"
         />
       </View>
-
-      <Text style={styles.tagline}>
-        Sharp and stylish! Book your barber appointment now..
-      </Text>
-
-      <View style={styles.citySelector}>
-        <Image
-          source={require("@/assets/images/search.svg")}
-          style={styles.locationIcon}
-          accessible={true}
-          accessibilityLabel="Location icon"
-        />
-        <View style={styles.cityTextContainer}>
-          <Text style={styles.cityText}>Please Select Your City</Text>
+      <View style={styles.firstPart}>
+        <View style={styles.perfil}>
           <Image
-            source={require("@/assets/images/setaPraBaixo.svg")}
-            style={styles.dropdownIcon}
-            accessible={true}
-            accessibilityLabel="Select city dropdown"
+            source={require("@/assets/images/images.jpg")}
+            style={styles.perfil}
           />
+          <Text style={styles.texts}>GENTLEMEN CLUB</Text>
+          <Text style={styles.texts}>Level Up Your Look With us ! </Text>
+          <Text style={styles.texts}>Address :  Casablanca , 28 rue  lmankobin</Text>
+          <Text style={styles.texts}>Open Now</Text>
+          <Text style={styles.texts}>Service here</Text>
+          <View>
+          <Text style={styles.texts}>50$</Text>
+          <Text style={styles.texts}>40min</Text>
+          </View>
         </View>
       </View>
-
-      <Text style={styles.sectionTitle}>
-        Available Barbers In Your Location
-      </Text>
-
-      {/* ScrollView Horizontal para a lista de barbeiros */}
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        style={styles.barberList}
-      >
-        {barberShops.map((shop) => (
-          <View key={shop.id} style={styles.cardContainer}>
-            <BarberCard shop={shop} onBookNow={handleBookNow} />
-          </View>
-        ))}
-      </ScrollView>
-
-
-        <View style={styles.cardContainer2}>
-          <View style={styles.cardWrapper2}>
-            <Image
-              resizeMode="cover"
-              source={require("@/assets/images/backgroundCardDescont.svg")}
-              style={styles.shopImage2}
-              accessible={true}
-              accessibilityLabel={`barber shop image`}
-            />
-
-            <Image
-              resizeMode="cover"
-              source={require("@/assets/images/photoBarber.svg")}
-              style={styles.shopImage3}
-              accessible={true}
-              accessibilityLabel={`barber shop image`}
-            />
-            <View
-              style={styles.bookButton2}
-              // onPress={() => onBookNow(shop.id)}
-              accessible={true}
-              // accessibilityLabel={`Book appointment at ${shop.name}`}
-              accessibilityRole="button"
-            >
-              <Text style={styles.bookButtonText2}>Book Now</Text>
-            </View>
-          </View>
-        </View>
-   
-
+      <Calendar
+        style={styles.calendar}
+        theme={{
+          backgroundColor: "#202020",
+          calendarBackground: "#202020",
+          textSectionTitleColor: "#FFFFFFFF",
+          textSectionTitleDisabledColor: "#d9e1e8",
+          selectedDayBackgroundColor: "#FBFBFBFF",
+          selectedDayTextColor: "#202020",
+          todayTextColor: "#45B917FF",
+          dayTextColor: "#FFFFFFFF",
+          textDisabledColor: "#d9e1e8",
+          dotColor: "#FFFFFFFF",
+          selectedDotColor: "#F6F1F1FF",
+          arrowColor: "white",
+          disabledArrowColor: "#FFFFFFFF",
+          monthTextColor: "white",
+          indicatorColor: "white",
+          textDayFontFamily: "monospace",
+          textMonthFontFamily: "monospace",
+          textDayHeaderFontFamily: "monospace",
+          textDayFontWeight: "300",
+          textMonthFontWeight: "bold",
+          textDayHeaderFontWeight: "300",
+          textDayFontSize: 16,
+          textMonthFontSize: 16,
+          textDayHeaderFontSize: 16,
+        }}
+        onDayPress={(day: { dateString: React.SetStateAction<string> }) => {
+          if (day && day.dateString) {
+            setSelected(day.dateString);
+          }
+        }}
+        markedDates={{
+          [selected]: {
+            selected: true,
+            disableTouchEvent: true,
+            selectedDotColor: "orange",
+          },
+        }}
+      />
+      <TouchableOpacity style={styles.bookNow}>
+        <Image source={require("@/assets/images/button.svg")}></Image>
+      </TouchableOpacity>
       <NavigationBar />
     </ScrollView>
   );
@@ -156,138 +176,66 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
-  menuIcon: {
-    width: 24,
-    height: 24,
-  },
-  welcomeText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontFamily: "Segoe UI",
-  },
   notificationIcon: {
     width: 30,
     height: 30,
     marginLeft: 300,
   },
-  tagline: {
-    color: "#959595",
-    fontSize: 12,
-    fontFamily: "Segoe UI",
-    marginTop: 10,
-  },
-  citySelector: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "rgba(157, 178, 206, 0.47)",
-    borderRadius: 12,
+  calendar: {
+    width: 350,
+    borderRadius: 15,
     padding: 10,
-    marginTop: 13,
-    width: "100%",
-    maxWidth: 311,
+    marginTop: 20,
   },
-  locationIcon: {
-    width: 25,
-    height: 25,
+  perfil: {
+    borderRadius: 500,
+    height: 150,
+    width: 150,
   },
-  cityTextContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    flex: 1,
-    justifyContent: "space-between",
-    marginLeft: 10,
-  },
-  cityText: {
-    color: "#9DB2CE",
-    fontSize: 15,
-    fontFamily: "Segoe UI",
-  },
-  dropdownIcon: {
-    width: 25,
-    height: 25,
-  },
-  sectionTitle: {
-    color: "#9DB2CE",
-    fontSize: 16,
-    fontFamily: "Segoe UI",
-    marginTop: 24,
+  text: {
+    fontSize: 18,
     marginBottom: 20,
   },
-  barberList: {
-    width: "100%",
-    // marginBottom: 20,
+  button: {
+    backgroundColor: "#4CAF50",
+    padding: 10,
+    borderRadius: 5,
   },
-  cardContainer: {
-    marginRight: 15, // Ajuste o espaçamento entre os cards
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
   },
-  cardWrapper: {
-    borderRadius: 12,
-    padding: 16,
-    marginRight: 120,
+  image: {
+    width: 200,
+    height: 200,
+    marginTop: 20,
+    borderRadius: 10,
   },
-  shopImage: {
-    borderRadius: 12,
-    aspectRatio: 0.96,
-    width: "200%",
-    height: "72%",
+  input: {
+    marginBottom: 20,
   },
-  bookButton: {
-    borderRadius: 9,
-    borderColor: "#FED60A",
-    borderWidth: 1,
-    marginTop: 4,
-    padding: 4,
-    alignItems: "center",
-    width: 105,
+  firstPart: {
+    marginBottom: 105,
+    fontSize:16,
+    color: "#FFFFFF"
   },
-  bookButtonText: {
-    fontFamily: "Viga",
-    fontSize: 14,
-    color: "#FFFFFFFF",
+  bookNow:{
+    marginTop: 50,
+    marginBottom: 75
   },
-  cardContainer2: {
-    marginRight: 190,
-  position: "relative",
-     // Ajuste o espaçamento entre os cards
-  },
-  cardWrapper2: {
-    borderRadius: 12,
-  },
-  shopImage2: {
-    borderRadius: 12,
-    aspectRatio: 1,
-    width: "345%",
-    position: 'absolute',
-    top: -170,
-    left: -32,
-    zIndex: 100
-  },
-  bookButton2: {
-    borderRadius: 9,
-    borderColor: "#FED60A",
-    borderWidth: 1,
-    marginTop: 4,
-    padding: 4,
-    alignItems: "center",
-    width: 105,
-    height:35,
-    // position: 'absolute',
-    // top: 0,
-    // left: 0
-  },
-  bookButtonText2: {
-    fontFamily: "Viga",
-    fontSize: 14,
-    color: "#FFFFFFFF",
-  },
-  shopImage3: {
-    borderRadius: 12,
-    aspectRatio: 1,
-    width: "100%",
-    position: 'absolute',
-    top: -160,
-    left: 215,
-    zIndex: 200
-  },
-
+  texts:{
+    color: "#FFFFFF"
+  }
 });
+
+{
+  /* Caso precise de input */
+}
+{
+  /* <input type="file" accept="image/*" onChange={handleImageSelect} style={styles.input} />
+          {imageUri ? (
+        <Image source={{ uri: imageUri }} style={styles.perfil} />
+      ) : (
+        <Image source={require("@/assets/images/images.jpg")} style={styles.perfil} />
+      )} */
+}

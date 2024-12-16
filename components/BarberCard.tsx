@@ -15,6 +15,10 @@ interface BarberCardProps {
   onBookNow: (shopId: string) => void;
 }
 
+const schedule = () => {
+  router.push("/schedule");
+};
+
 export const BarberCard: React.FC<BarberCardProps> = ({ shop, onBookNow }) => {
   return (
     <View style={styles.cardContainer}>
@@ -40,7 +44,7 @@ export const BarberCard: React.FC<BarberCardProps> = ({ shop, onBookNow }) => {
         </View>
         <TouchableOpacity
           style={styles.bookButton}
-          onPress={() => onBookNow(shop.id)}
+          onPress={() =>{schedule(), onBookNow(shop.id)}}
           accessible={true}
           accessibilityLabel={`Book appointment at ${shop.name}`}
           accessibilityRole="button"
