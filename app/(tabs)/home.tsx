@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { BarberCard } from "@/components/BarberCard";
 import { router } from "expo-router";
+import { TextInput } from "react-native-gesture-handler";
 
 interface BarberShopData {
   id: string;
@@ -69,7 +70,6 @@ export default function TabTwoScreen() {
           accessibilityLabel="Location icon"
         />
         <View style={styles.cityTextContainer}>
-          <Text style={styles.cityText}>Please Select Your City</Text>
           <Image
             source={require("@/assets/images/setaPraBaixo.svg")}
             style={styles.dropdownIcon}
