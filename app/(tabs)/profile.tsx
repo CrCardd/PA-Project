@@ -70,9 +70,9 @@ export default function profileScreen() {
         </View>
 
         <View style={styles.tableSection}>
-          <TouchableOpacity style={styles.historyButton}>
+          <View style={styles.history}>
             <Text style={styles.historyLabel}>History</Text>
-          </TouchableOpacity>
+          </View>
           <View>
 
             <View style={styles.table}>
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     lineHeight: 10
   },
-  historyButton: {
+  history: {
     width: 372,
     backgroundColor: '#eccc10',
     padding: 5,
