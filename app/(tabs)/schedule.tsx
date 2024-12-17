@@ -13,11 +13,6 @@ import { BarberCard } from "@/components/BarberCard";
 import { router } from "expo-router";
 import { Calendar } from "react-native-calendars";
 import { useState } from "react";
-import {
-  ImagePickerResponse,
-  launchImageLibrary,
-} from "react-native-image-picker";
-import RNFS from "react-native-fs";
 
 interface BarberShopData {
   id: string;
@@ -150,7 +145,6 @@ export default function TabTwoScreen() {
       <TouchableOpacity style={styles.bookNow}>
         <Image source={require("@/assets/images/button.svg")}></Image>
       </TouchableOpacity>
-      <NavigationBar />
     </ScrollView>
   );
 }
