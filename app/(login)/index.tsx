@@ -17,16 +17,16 @@ export default function TabTwoScreen() {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Image
         source={require("@/assets/images/barbeiro.png")}
         style={styles.backgroundImage}
       />
       <View style={styles.authContainer}>
    
-        <AuthButton label="SIGN IN" variant="primary" onPress={onPress} />
+        <AuthButton label="SIGN IN" variant="primary" onPress={() => { router.push('/login')}} />
 
-        <AuthButton label="SIGN UP" variant="secondary" onPress={onPress} />
+        <AuthButton label="SIGN UP" variant="secondary" onPress={() => { router.push("/register")}} />
 
         <TouchableOpacity
           accessibilityRole="button"
@@ -36,7 +36,7 @@ export default function TabTwoScreen() {
         </TouchableOpacity>
 
         <View style={styles.socialIconsContainer}>
-          <SocialIcon
+          {/* <SocialIcon
             key={1}
             imageUrl={require("@/assets/images/facebook.svg")}
             alt={"icon.alt"}
@@ -55,10 +55,10 @@ export default function TabTwoScreen() {
             imageUrl={require("@/assets/images/twitter.svg")}
             alt={"icon.alt"}
             onPress={onPress}
-          />
+          /> */}
         </View>
       </View>
-    </ScrollView>
+    </View>
   );
 }
 

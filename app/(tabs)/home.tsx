@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { BarberCard } from "@/components/BarberCard";
-import { NavigationBar } from "@/components/NavigationBar";
 import { router } from "expo-router";
+import { TextInput } from "react-native-gesture-handler";
 
 interface BarberShopData {
   id: string;
@@ -45,13 +45,7 @@ export default function TabTwoScreen() {
     
   };
 
-  const back = () => {
-    router.push("/explore");
-  };
 
-  const schedule = () => {
-    router.push("/schedule");
-  };
 
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
@@ -76,7 +70,6 @@ export default function TabTwoScreen() {
           accessibilityLabel="Location icon"
         />
         <View style={styles.cityTextContainer}>
-          <Text style={styles.cityText}>Please Select Your City</Text>
           <Image
             source={require("@/assets/images/setaPraBaixo.svg")}
             style={styles.dropdownIcon}
@@ -132,9 +125,7 @@ export default function TabTwoScreen() {
             </View>
           </View>
         </View>
-   
-
-      <NavigationBar />
+  
     </ScrollView>
   );
 }

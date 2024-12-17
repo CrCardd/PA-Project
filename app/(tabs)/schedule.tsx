@@ -10,7 +10,6 @@ import {
   Button,
 } from "react-native";
 import { BarberCard } from "@/components/BarberCard";
-import { NavigationBar } from "@/components/NavigationBar";
 import { router } from "expo-router";
 import { Calendar } from "react-native-calendars";
 import { useState } from "react";
@@ -56,9 +55,6 @@ export default function TabTwoScreen() {
     // Função de reserva (não implementada, mas pode ser ajustada)
   };
 
-  const back = () => {
-    router.push("/explore");
-  };
 
   const schedule = () => {
     router.push("/schedule");
