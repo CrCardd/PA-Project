@@ -1,6 +1,6 @@
-import { Tabs } from 'expo-router';
+import { router, Tabs } from 'expo-router';
 import React from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
 
 import { Colors } from '@/constants/Colors';
@@ -13,55 +13,52 @@ export default function TabLayout() {
 
   return (
     <Tabs
-      screenOptions={{
+      screenOptions = {({route}) => ({
         tabBarActiveTintColor: '#ebc812',
         headerShown: false,
         tabBarHideOnKeyboard: true,
-        // tabBarIconStyle: {display: 'none'},
         tabBarLabelStyle: {
           fontFamily: 'RobotoSlab-Bold',
           fontSize: 15
         },
-        // tabBarStyle: Platform.select({
-        //   ios: {
-        //     // Use a transparent background on iOS to show the blur effect
-        //     position: 'absolute',
-        //   },
-        //   android: {
-            
-        //   },
-        //   default: {},
-        // }),
         tabBarStyle: {
           backgroundColor: 'rgba(0,0,2,1)',
           height: 65,
-          padding: 5
-        }
-      }}>
-      <Tabs.Screen
-        name="home" 
-        options={{
+          padding: 5,
+        },
+
+        tabBarButton: ['schedule', '(tabs)/schedule'].includes(route.name)
+        ? () => {
+            return null;
+          }
+        : undefined,
+        
+      })}>
+        <Tabs.Screen
+          name="home" 
+          options={{
+              tabBarIcon: ({color, size}) => (
+              <Ionicons name="home" color={color} size={size}/>
+            )
+          }}
+        />
+        <Tabs.Screen
+          name="schedule"
+          options={{
             tabBarIcon: ({color, size}) => (
-            <Ionicons name="home" color={color} size={size}/>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="schedule"
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Ionicons name="calendar" color={color} size={size}/>
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          tabBarIcon: ({color, size}) => (
-            <Ionicons name="person" color={color} size={size}/>
-          ),
-        }}
-      />
+              <Ionicons name="calendar" color={color} size={size}/>
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            tabBarIcon: ({color, size}) => (
+              <Ionicons name="person" color={color} size={size}/>
+            ),
+          }}
+        />
+
     </Tabs>
   );
 }

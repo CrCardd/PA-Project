@@ -150,7 +150,6 @@ export default function TabTwoScreen() {
       <TouchableOpacity style={styles.bookNow}>
         <Image source={require("@/assets/images/button.svg")}></Image>
       </TouchableOpacity>
-      <NavigationBar />
     </ScrollView>
   );
 }
