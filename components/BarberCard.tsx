@@ -5,6 +5,7 @@ import { View, Image, Text, StyleSheet, TouchableOpacity, ImageSourcePropType } 
 interface BarberShopData {
   id: string;
   name: string;
+  price: number;
   distance: string;
   openingHours: string;
   isOpen: boolean;
@@ -40,6 +41,7 @@ export const BarberCard: React.FC<BarberCardProps> = ({ shop, onBookNow }) => {
         </View>
         <View style={styles.shopInfoContainer}>
           <Text style={styles.shopName}>{shop.name}</Text>
+          <Text style={styles.shopName}>U$ {shop.price}</Text>
           <Text style={styles.distance}>{shop.distance}</Text>
         </View>
         <TouchableOpacity

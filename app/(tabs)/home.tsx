@@ -15,6 +15,7 @@ import { TextInput } from "react-native-gesture-handler";
 interface BarberShopData {
   id: string;
   name: string;
+  price: number;
   distance: string;
   openingHours: string;
   isOpen: boolean;
@@ -24,7 +25,8 @@ interface BarberShopData {
 const barberShops: BarberShopData[] = [
   {
     id: "1",
-    name: 'U$ 10',
+    name: 'BARBER',
+    price: 10,
     distance: "0.5 km",
     openingHours: "10 am–10 pm",
     isOpen: true,
@@ -32,7 +34,8 @@ const barberShops: BarberShopData[] = [
   },
   {
     id: "2",
-    name: "U$ 15",
+    name: "HAIR",
+    price: 15,
     distance: "0.5 km",
     openingHours: "10 am–10 pm",
     isOpen: true,
