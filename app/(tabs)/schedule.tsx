@@ -13,11 +13,7 @@ import { BarberCard } from "@/components/BarberCard";
 import { router } from "expo-router";
 import { Calendar } from "react-native-calendars";
 import { useState } from "react";
-import {
-  ImagePickerResponse,
-  launchImageLibrary,
-} from "react-native-image-picker";
-import RNFS from "react-native-fs";
+import Select from "react-select";
 
 interface BarberShopData {
   id: string;
@@ -49,12 +45,12 @@ const barberShops: BarberShopData[] = [
 
 export default function TabTwoScreen() {
   const [selected, setSelected] = useState("");
+  const [selectedTime, setSelectedTime] = useState(null);
 
   const handleBookNow = (shopId: string) => {
     schedule();
     // Função de reserva (não implementada, mas pode ser ajustada)
   };
-
 
   const schedule = () => {
     router.push("/schedule");
@@ -62,22 +58,13 @@ export default function TabTwoScreen() {
 
   const [imageUri, setImageUri] = useState<string | null>(null);
 
-  // Função para abrir a galeria e escolher uma imagem
-  const handleImageSelect = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const file = event.target.files?.[0]; // Pega o primeiro arquivo selecionado
-    console.log(file);
-
-    if (file) {
-      const reader = new FileReader(); // Criando um FileReader para ler a imagem
-      reader.onloadend = () => {
-        // Quando a leitura terminar, atualiza o estado com o URI da imagem
-        setImageUri(reader.result as string);
-      };
-      reader.readAsDataURL(file); // Lê o arquivo como uma URL base64
-    }
-  };
+  const allowedTimes = [
+    { value: "09:00", label: "09:00" },
+    { value: "10:00", label: "10:00" },
+    { value: "14:00", label: "14:00" },
+    { value: "15:30", label: "15:30" },
+    { value: "17:00", label: "17:00" },
+  ];
 
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
@@ -95,61 +82,71 @@ export default function TabTwoScreen() {
             source={require("@/assets/images/images.jpg")}
             style={styles.perfil}
           />
-          <Text style={styles.texts}>GENTLEMEN CLUB</Text>
-          <Text style={styles.texts}>Level Up Your Look With us ! </Text>
-          <Text style={styles.texts}>Address :  Casablanca , 28 rue  lmankobin</Text>
-          <Text style={styles.texts}>Open Now</Text>
-          <Text style={styles.texts}>Service here</Text>
+          <Text style={styles.textsSpecial}>GENTLEMEN CLUB</Text>
+          <Text style={styles.open}>Open Now</Text>
+          <Text style={styles.service}>Service here</Text>
           <View>
-          <Text style={styles.texts}>50$</Text>
-          <Text style={styles.texts}>40min</Text>
+            <Text style={styles.valor}>50$ 40min</Text>
           </View>
         </View>
       </View>
-      <Calendar
-        style={styles.calendar}
-        theme={{
-          backgroundColor: "#202020",
-          calendarBackground: "#202020",
-          textSectionTitleColor: "#FFFFFFFF",
-          textSectionTitleDisabledColor: "#d9e1e8",
-          selectedDayBackgroundColor: "#FBFBFBFF",
-          selectedDayTextColor: "#202020",
-          todayTextColor: "#45B917FF",
-          dayTextColor: "#FFFFFFFF",
-          textDisabledColor: "#d9e1e8",
-          dotColor: "#FFFFFFFF",
-          selectedDotColor: "#F6F1F1FF",
-          arrowColor: "white",
-          disabledArrowColor: "#FFFFFFFF",
-          monthTextColor: "white",
-          indicatorColor: "white",
-          textDayFontFamily: "monospace",
-          textMonthFontFamily: "monospace",
-          textDayHeaderFontFamily: "monospace",
-          textDayFontWeight: "300",
-          textMonthFontWeight: "bold",
-          textDayHeaderFontWeight: "300",
-          textDayFontSize: 16,
-          textMonthFontSize: 16,
-          textDayHeaderFontSize: 16,
-        }}
-        onDayPress={(day: { dateString: React.SetStateAction<string> }) => {
-          if (day && day.dateString) {
-            setSelected(day.dateString);
-          }
-        }}
-        markedDates={{
-          [selected]: {
-            selected: true,
-            disableTouchEvent: true,
-            selectedDotColor: "orange",
-          },
-        }}
-      />
-      <TouchableOpacity style={styles.bookNow}>
-        <Image source={require("@/assets/images/button.svg")}></Image>
-      </TouchableOpacity>
+
+      <View style={styles.dateAndTime}>
+        <Calendar
+          style={styles.calendar}
+          theme={{
+            backgroundColor: "#202020",
+            calendarBackground: "#202020",
+            textSectionTitleColor: "#FFFFFFFF",
+            textSectionTitleDisabledColor: "#d9e1e8",
+            selectedDayBackgroundColor: "#FBFBFBFF",
+            selectedDayTextColor: "#202020",
+            todayTextColor: "#45B917FF",
+            dayTextColor: "#FFFFFFFF",
+            textDisabledColor: "#d9e1e8",
+            dotColor: "#FFFFFFFF",
+            selectedDotColor: "#F6F1F1FF",
+            arrowColor: "white",
+            disabledArrowColor: "#FFFFFFFF",
+            monthTextColor: "white",
+            indicatorColor: "white",
+            textDayFontFamily: "monospace",
+            textMonthFontFamily: "monospace",
+            textDayHeaderFontFamily: "monospace",
+            textDayFontWeight: "300",
+            textMonthFontWeight: "bold",
+            textDayHeaderFontWeight: "300",
+            textDayFontSize: 16,
+            textMonthFontSize: 16,
+            textDayHeaderFontSize: 16,
+          }}
+          onDayPress={(day: { dateString: React.SetStateAction<string> }) => {
+            if (day && day.dateString) {
+              console.log(day.dateString);
+              setSelected(day.dateString);
+            }
+          }}
+          markedDates={{
+            [selected]: {
+              selected: true,
+              disableTouchEvent: true,
+              selectedDotColor: "orange",
+            },
+          }}
+        />
+        {/* <View style={styles.time}>
+
+        <Select
+          options={allowedTimes}
+          onChange={(option: any) => setSelectedTime(option.value)}
+          placeholder="Selecione um horário"
+          menuPlacement="bottom" 
+        />
+        </View> */}
+        <TouchableOpacity style={styles.bookNow}>
+          <Image source={require("@/assets/images/button.svg")}></Image>
+        </TouchableOpacity>
+      </View>
     </ScrollView>
   );
 }
@@ -157,7 +154,6 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    borderRadius: 30,
     paddingHorizontal: 15,
     paddingTop: 39,
     paddingBottom: 17,
@@ -180,7 +176,7 @@ const styles = StyleSheet.create({
     width: 350,
     borderRadius: 15,
     padding: 10,
-    marginTop: 20,
+    marginTop: 25,
   },
   perfil: {
     borderRadius: 500,
@@ -211,15 +207,48 @@ const styles = StyleSheet.create({
   },
   firstPart: {
     marginBottom: 105,
-    fontSize:16,
-    color: "#FFFFFF"
+    fontSize: 16,
+    color: "#FFFFFF",
   },
-  bookNow:{
-    marginTop: 50,
-    marginBottom: 75
+  bookNow: {
+    marginBottom: 25,
+    marginTop: 25,
   },
-  texts:{
-    color: "#FFFFFF"
+  texts: {
+    color: "#FFFFFF",
+    width: "100%",
+    textAlign: "center",
+  },
+  textsSpecial: {
+    color: "#FFFFFF",
+    fontSize: 18,
+    width: "150%",
+    // textAlign: 'center'
+  },
+  open: {
+    color: "#3DD22DFF",
+    fontSize: 16,
+    // width: "150%",
+    textAlign: "center",
+  },
+  service: {
+    color: "#FFFFFF",
+    fontSize: 18,
+    // width: "150%",
+    textAlign: "center",
+  },
+  valor: {
+    color: "#FFFFFF",
+    fontSize: 16,
+    // width: "150%",
+    textAlign: "center",
+  },
+  dateAndTime: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  time:{
+    marginTop: 25
   }
 });
 

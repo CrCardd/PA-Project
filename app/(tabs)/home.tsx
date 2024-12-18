@@ -41,11 +41,7 @@ const barberShops: BarberShopData[] = [
 ];
 
 export default function TabTwoScreen() {
-  const handleBookNow = (shopId: string) => {
-    
-  };
-
-
+  const handleBookNow = (shopId: string) => {};
 
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
@@ -69,19 +65,7 @@ export default function TabTwoScreen() {
           accessible={true}
           accessibilityLabel="Location icon"
         />
-        <View style={styles.cityTextContainer}>
-          <Image
-            source={require("@/assets/images/setaPraBaixo.svg")}
-            style={styles.dropdownIcon}
-            accessible={true}
-            accessibilityLabel="Select city dropdown"
-          />
-        </View>
       </View>
-
-      <Text style={styles.sectionTitle}>
-        Available Barbers In Your Location
-      </Text>
 
       {/* ScrollView Horizontal para a lista de barbeiros */}
       <ScrollView
@@ -96,36 +80,18 @@ export default function TabTwoScreen() {
         ))}
       </ScrollView>
 
-
-        <View style={styles.cardContainer2}>
-          <View style={styles.cardWrapper2}>
+      <View style={styles.cardContainer2}>
+        <View style={styles.cardWrapper2}>
+          <TouchableOpacity style={styles.shopImage2}>
             <Image
               resizeMode="cover"
-              source={require("@/assets/images/backgroundCardDescont.svg")}
-              style={styles.shopImage2}
+              source={require("@/assets/images/vai.png")}
               accessible={true}
               accessibilityLabel={`barber shop image`}
             />
-
-            <Image
-              resizeMode="cover"
-              source={require("@/assets/images/photoBarber.svg")}
-              style={styles.shopImage3}
-              accessible={true}
-              accessibilityLabel={`barber shop image`}
-            />
-            <View
-              style={styles.bookButton2}
-              // onPress={() => onBookNow(shop.id)}
-              accessible={true}
-              // accessibilityLabel={`Book appointment at ${shop.name}`}
-              accessibilityRole="button"
-            >
-              <Text style={styles.bookButtonText2}>Book Now</Text>
-            </View>
-          </View>
+          </TouchableOpacity>
         </View>
-  
+      </View>
     </ScrollView>
   );
 }
@@ -133,7 +99,6 @@ export default function TabTwoScreen() {
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    borderRadius: 30,
     paddingHorizontal: 15,
     paddingTop: 39,
     paddingBottom: 17,
@@ -174,6 +139,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: 10,
     marginTop: 13,
+    marginBottom: 30,
     width: "100%",
     maxWidth: 311,
   },
@@ -238,8 +204,10 @@ const styles = StyleSheet.create({
   },
   cardContainer2: {
     marginRight: 190,
-  position: "relative",
-     // Ajuste o espaçamento entre os cards
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+    // Ajuste o espaçamento entre os cards
   },
   cardWrapper2: {
     borderRadius: 12,
@@ -248,37 +216,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     aspectRatio: 1,
     width: "345%",
-    position: 'absolute',
-    top: -170,
-    left: -32,
-    zIndex: 100
+    position: "absolute",
+    top: -215,
+    left: -90,
+    zIndex: 100,
   },
-  bookButton2: {
-    borderRadius: 9,
-    borderColor: "#FED60A",
-    borderWidth: 1,
-    marginTop: 4,
-    padding: 4,
-    alignItems: "center",
-    width: 105,
-    height:35,
-    // position: 'absolute',
-    // top: 0,
-    // left: 0
-  },
-  bookButtonText2: {
-    fontFamily: "Viga",
-    fontSize: 14,
-    color: "#FFFFFFFF",
-  },
-  shopImage3: {
-    borderRadius: 12,
-    aspectRatio: 1,
-    width: "100%",
-    position: 'absolute',
-    top: -160,
-    left: 215,
-    zIndex: 200
-  },
-
 });
