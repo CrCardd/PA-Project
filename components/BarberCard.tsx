@@ -6,7 +6,6 @@ interface BarberShopData {
   id: string;
   name: string;
   price: number;
-  distance: string;
   openingHours: string;
   isOpen: boolean;
   imageUrl: ImageSourcePropType;
@@ -42,7 +41,6 @@ export const BarberCard: React.FC<BarberCardProps> = ({ shop, onBookNow }) => {
         <View style={styles.shopInfoContainer}>
           <Text style={styles.shopName}>{shop.name}</Text>
           <Text style={styles.shopName}>U$ {shop.price}</Text>
-          <Text style={styles.distance}>{shop.distance}</Text>
         </View>
         <TouchableOpacity
           style={styles.bookButton}

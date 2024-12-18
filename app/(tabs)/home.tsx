@@ -16,7 +16,6 @@ interface BarberShopData {
   id: string;
   name: string;
   price: number;
-  distance: string;
   openingHours: string;
   isOpen: boolean;
   imageUrl: ImageSourcePropType;
@@ -27,7 +26,6 @@ const barberShops: BarberShopData[] = [
     id: "1",
     name: 'BARBER',
     price: 10,
-    distance: "0.5 km",
     openingHours: "10 am–10 pm",
     isOpen: true,
     imageUrl: require("@/assets/images/shave_barber.png"),
@@ -36,7 +34,6 @@ const barberShops: BarberShopData[] = [
     id: "2",
     name: "HAIR",
     price: 15,
-    distance: "0.5 km",
     openingHours: "10 am–10 pm",
     isOpen: true,
     imageUrl: require("@/assets/images/shave_hair.png"),
