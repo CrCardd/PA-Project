@@ -11,10 +11,46 @@ import { SocialIcon } from "@/components/SocialIcon";
 import { AuthButton } from "@/components/AuthButton";
 import { router } from "expo-router";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
 export default function TabTwoScreen() {
   const onPress = () => {
     router.push("/home");
   };
+
+
+  React.useEffect(() => {
+    try{
+      AsyncStorage.setItem(
+        'barberShop'
+        ,JSON.stringify(
+          [
+            {
+              id: "1",
+              name: 'BARBER',
+              price: 10,
+              openingHours: "10 am–10 pm",
+              isOpen: true,
+              imageUrl: require("@/assets/images/shave_barber.png"),
+            },
+            {
+              id: "2",
+              name: "HAIR",
+              price: 15,
+              openingHours: "10 am–10 pm",
+              isOpen: true,
+              imageUrl: require("@/assets/images/shave_hair.png"),
+            }
+          ]
+        )
+      )
+    }
+    catch (e){
+      console.log(e)
+    }
+  }, [])
 
   return (
     <View style={styles.container}>

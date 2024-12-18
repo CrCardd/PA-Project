@@ -11,40 +11,35 @@ import {
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+interface IHistory {
+    price: number,
+    service: string,
+    date: string
+}
 
 export default function profileScreen() {
   
+  const [data, setData] = React.useState<IHistory[]>()
 
-  // interface IData{
-  //   service: string,
-  //   haircutDate: string,
-  //   price: string
-  // }
+  const loadData = async() => {
+    try {
+      const response = await AsyncStorage.getItem('history');
+      if (response !== null) {
+        const dat: IHistory[] = JSON.parse(response);
+        setData(dat)
+        console.log(dat)
 
-  // const [data, setData] = React.useState<IData[]>(
-  //   [
-  //     {
-  //       service: "",
-  //       haircutDate: "",
-  //       price: ""
-  //     }
-  //   ]  
-  // )
+      }
 
-  // React.useEffect(() => {
-  //   try{
-  //     const dat: IData[] = await AsyncStorage.getItem('serviceHistory')
-  //     setData(dat)
-  //   }
-  // }, [])
+    } catch (error) {
+      console.log('Erro ao recuperar dados do AsyncStorage', error);
+    }
+  }
 
-
-
-
-  // const defaultWidth = 372
-  // const defaultColor = '#eccc10'
-  // const tableBorder = 1
-
+  React.useEffect(() => {
+    loadData()
+  }, [])
+  
 
 
   return (
@@ -82,16 +77,18 @@ export default function profileScreen() {
                 <Text style={[styles.tableText, styles.tableHeaderText, {borderLeftWidth: 1, borderColor: '#eccc10'}]}>Price</Text>
               </View>
 
-              {/* {
-                __map((item, index) => {*/}
-                  <View style={[styles.tableData, styles.tableGeneric]}>
-                    <Text style={[styles.tableText, styles.tableDataText, {borderRightWidth: 1, borderColor: '#eccc10'}]}>Barba</Text>
-                    <Text style={[styles.tableText, styles.tableDataText]}>hoje</Text>
-                    <Text style={[styles.tableText, styles.tableDataText, {borderLeftWidth: 1, borderColor: '#eccc10'}]}>R$ 2.00</Text>
-                  </View>
-              {/*
+              {
+                data &&
+                data.map((item) => {
+                  return(
+                    <View style={[styles.tableData, styles.tableGeneric]}>
+                      <Text style={[styles.tableText, styles.tableDataText, {borderRightWidth: 1, borderColor: '#eccc10'}]}>{item.service}</Text>
+                      <Text style={[styles.tableText, styles.tableDataText]}>{item.date}</Text>
+                      <Text style={[styles.tableText, styles.tableDataText, {borderLeftWidth: 1, borderColor: '#eccc10'}]}>R$ {item.date}</Text>
+                    </View>
+                  )
                 })
-              } */}
+              }
             </View>
 
 

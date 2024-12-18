@@ -12,8 +12,11 @@ import { BarberCard } from "@/components/BarberCard";
 import { router } from "expo-router";
 import { TextInput } from "react-native-gesture-handler";
 
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 interface BarberShopData {
-  id: string;
+  id: number;
   name: string;
   price: number;
   openingHours: string;
@@ -21,27 +24,28 @@ interface BarberShopData {
   imageUrl: ImageSourcePropType;
 }
 
-const barberShops: BarberShopData[] = [
-  {
-    id: "1",
-    name: 'BARBER',
-    price: 10,
-    openingHours: "10 am–10 pm",
-    isOpen: true,
-    imageUrl: require("@/assets/images/shave_barber.png"),
-  },
-  {
-    id: "2",
-    name: "HAIR",
-    price: 15,
-    openingHours: "10 am–10 pm",
-    isOpen: true,
-    imageUrl: require("@/assets/images/shave_hair.png"),
-  },
-];
+
 
 export default function TabTwoScreen() {
-  const handleBookNow = (shopId: string) => {};
+  const handleBookNow = (shopId: number) => {};
+
+  const [data, setData] = React.useState<BarberShopData[]>([])
+
+const loadData = async() => {
+  try {
+    const response = await AsyncStorage.getItem('barberShop');
+    if (response !== null) {
+      const dat: BarberShopData[] = JSON.parse(response);
+      setData(dat)
+    }
+  } catch (error) {
+    console.log('Erro ao recuperar dados do AsyncStorage', error);
+  }
+}
+
+  React.useEffect(() => {
+    loadData()
+  }, [])
 
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
@@ -73,7 +77,7 @@ export default function TabTwoScreen() {
         showsHorizontalScrollIndicator={false}
         style={styles.barberList}
       >
-        {barberShops.map((shop) => (
+        {data.map((shop) => (
           <View key={shop.id} style={styles.cardContainer}>
             <BarberCard shop={shop} onBookNow={handleBookNow} />
           </View>

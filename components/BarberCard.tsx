@@ -1,9 +1,12 @@
+import Schedule from "@/app/(tabs)/schedule";
 import { router } from "expo-router";
 import * as React from "react";
 import { View, Image, Text, StyleSheet, TouchableOpacity, ImageSourcePropType } from "react-native";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 interface BarberShopData {
-  id: string;
+  id: number;
   name: string;
   price: number;
   openingHours: string;
@@ -12,14 +15,19 @@ interface BarberShopData {
 }
 interface BarberCardProps {
   shop: BarberShopData;
-  onBookNow: (shopId: string) => void;
+  onBookNow: (shopId: number) => void;
 }
 
-const schedule = () => {
-  router.push("/schedule");
+// const [route, setRoute] = React.useState()
+
+const schedule = (service: BarberShopData) => {
+  
+  router.push('/schedule');
+  AsyncStorage.setItem('currService', JSON.stringify({service}))
 };
 
 export const BarberCard: React.FC<BarberCardProps> = ({ shop, onBookNow }) => {
+  
   return (
     <View style={styles.cardContainer}>
       <View style={styles.cardWrapper}>
@@ -44,7 +52,7 @@ export const BarberCard: React.FC<BarberCardProps> = ({ shop, onBookNow }) => {
         </View>
         <TouchableOpacity
           style={styles.bookButton}
-          onPress={() =>{schedule(), onBookNow(shop.id)}}
+          onPress={() =>{schedule(shop), onBookNow(shop.id)}}
           accessible={true}
           accessibilityLabel={`Book appointment at ${shop.name}`}
           accessibilityRole="button"

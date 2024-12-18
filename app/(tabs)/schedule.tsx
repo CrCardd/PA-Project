@@ -13,37 +13,29 @@ import { BarberCard } from "@/components/BarberCard";
 import { router } from "expo-router";
 import { Calendar } from "react-native-calendars";
 import { useState } from "react";
-import Select from "react-select";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
 
 interface BarberShopData {
-  id: string;
-  name: string;
-  distance: string;
-  openingHours: string;
-  isOpen: boolean;
-  imageUrl: ImageSourcePropType;
+  service: {
+    id: number;
+    name: string;
+    price: number;
+    openingHours: string;
+    isOpen: boolean;
+    imageUrl: ImageSourcePropType;
+  }
 }
 
-const barberShops: BarberShopData[] = [
-  {
-    id: "1",
-    name: "GENTLEMEN CLUB",
-    distance: "0.5 km",
-    openingHours: "10 am–10 pm",
-    isOpen: true,
-    imageUrl: require("@/assets/images/barbearia2.png"),
-  },
-  {
-    id: "2",
-    name: "GENTLEMEN CLUB",
-    distance: "0.5 km",
-    openingHours: "10 am–10 pm",
-    isOpen: true,
-    imageUrl: require("@/assets/images/corteCabelo.png"),
-  },
-];
+interface IHistory {
+  price: number,
+  service: string,
+  date: string
+}
 
-export default function TabTwoScreen() {
+
+export default function Schedule() {
   const [selected, setSelected] = useState("");
   const [selectedTime, setSelectedTime] = useState(null);
 
@@ -56,6 +48,48 @@ export default function TabTwoScreen() {
     router.push("/schedule");
   };
 
+  const [data, setData] = React.useState<BarberShopData>()
+
+  const loadData = async() => {
+    try {
+      const response = await AsyncStorage.getItem('currService');
+      if (response !== null) {
+        const dat: BarberShopData = JSON.parse(response);
+        setData(dat)
+        console.log(dat)
+      }
+
+    } catch (error) {
+      console.log('Erro ao recuperar dados do AsyncStorage', error);
+    }
+  }
+
+  React.useEffect(() => {
+    loadData()
+  }, [])
+
+  const buy = async () => {
+    if (!data) return; 
+  
+    const response = await AsyncStorage.getItem('history');
+    let history: IHistory[] = []; 
+    if (response !== null) {
+      history = JSON.parse(response);
+    }
+  
+    const newHistory: IHistory = {
+      price: data?.service.price,
+      service: data?.service.name,
+      date: selected
+    };
+  
+    history.push(newHistory); 
+    await AsyncStorage.setItem('history', JSON.stringify(history)); 
+
+    console.log(history)
+  };
+  
+
   const [imageUri, setImageUri] = useState<string | null>(null);
 
   const allowedTimes = [
@@ -65,7 +99,6 @@ export default function TabTwoScreen() {
     { value: "15:30", label: "15:30" },
     { value: "17:00", label: "17:00" },
   ];
-
   return (
     <ScrollView contentContainerStyle={styles.screenContainer}>
       <View style={styles.header}>
@@ -78,15 +111,14 @@ export default function TabTwoScreen() {
       </View>
       <View style={styles.firstPart}>
         <View style={styles.perfil}>
-          <Image
+          {/* <Image
             source={require("@/assets/images/images.jpg")}
             style={styles.perfil}
-          />
-          <Text style={styles.textsSpecial}>GENTLEMEN CLUB</Text>
+          /> */}
           <Text style={styles.open}>Open Now</Text>
-          <Text style={styles.service}>Service here</Text>
+          <Text style={styles.service}>{data?.service.name}</Text>
           <View>
-            <Text style={styles.valor}>50$ 40min</Text>
+            <Text style={styles.valor}>R$ {data?.service.price}</Text>
           </View>
         </View>
       </View>
@@ -122,7 +154,6 @@ export default function TabTwoScreen() {
           }}
           onDayPress={(day: { dateString: React.SetStateAction<string> }) => {
             if (day && day.dateString) {
-              console.log(day.dateString);
               setSelected(day.dateString);
             }
           }}
@@ -143,7 +174,7 @@ export default function TabTwoScreen() {
           menuPlacement="bottom" 
         />
         </View> */}
-        <TouchableOpacity style={styles.bookNow}>
+        <TouchableOpacity style={styles.bookNow} onPress={buy}>
           <Image source={require("@/assets/images/button.svg")}></Image>
         </TouchableOpacity>
       </View>
@@ -220,10 +251,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   textsSpecial: {
+    width: '100%',
     color: "#FFFFFF",
     fontSize: 18,
-    width: "150%",
-    // textAlign: 'center'
+    textAlign: 'center'
   },
   open: {
     color: "#3DD22DFF",
