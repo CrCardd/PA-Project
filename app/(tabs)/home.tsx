@@ -24,19 +24,19 @@ interface BarberShopData {
 const barberShops: BarberShopData[] = [
   {
     id: "1",
-    name: "GENTLEMEN CLUB",
+    name: 'U$ 10',
     distance: "0.5 km",
     openingHours: "10 am–10 pm",
     isOpen: true,
-    imageUrl: require("@/assets/images/barbearia2.png"),
+    imageUrl: require("@/assets/images/shave_barber.png"),
   },
   {
     id: "2",
-    name: "GENTLEMEN CLUB",
+    name: "U$ 15",
     distance: "0.5 km",
     openingHours: "10 am–10 pm",
     isOpen: true,
-    imageUrl: require("@/assets/images/corteCabelo.png"),
+    imageUrl: require("@/assets/images/shave_hair.png"),
   },
 ];
 

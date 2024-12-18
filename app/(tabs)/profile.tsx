@@ -59,8 +59,8 @@ export default function profileScreen() {
 
         <View style={styles.profile}>
           <View style={styles.profileImageBackground}>
-            {/* <Image style={styles.profileImage} source={require('@/assets/images')}/> */}
-            <View style={styles.profileImage}></View>
+            <Image style={styles.profileImage} source={require('@/assets/images/user_barber_.png')}/>
+            {/* <View style={styles.profileImage}></View> */}
           </View>
 
           <View style={styles.profileDescription}>
@@ -87,7 +87,7 @@ export default function profileScreen() {
                   <View style={[styles.tableData, styles.tableGeneric]}>
                     <Text style={[styles.tableText, styles.tableDataText, {borderRightWidth: 1, borderColor: '#eccc10'}]}>Barba</Text>
                     <Text style={[styles.tableText, styles.tableDataText]}>hoje</Text>
-                    <Text style={[styles.tableText, styles.tableDataText, {borderLeftWidth: 1, borderColor: '#eccc10'}]}>R2.00</Text>
+                    <Text style={[styles.tableText, styles.tableDataText, {borderLeftWidth: 1, borderColor: '#eccc10'}]}>R$ 2.00</Text>
                   </View>
               {/*
                 })
@@ -110,22 +110,22 @@ const styles = StyleSheet.create({
   options: {
     backgroundColor: '#eccc10',
     borderRadius: 35,
-    width: 40,
-    height: 40,
+    width: 25,
+    height: 25,
     position: 'absolute',
     top: 30,
     right: 30
   },
   optionsLabels: {
     position: 'absolute',
-    right: '38%',
-    top: '-16%'
+    right: 9,
+    top: -4
   },
   optionsLabel: {
     color: '#00000',
     fontWeight: 'bold',
-    fontSize: 40,
-    lineHeight: 10
+    fontSize: 25,
+    lineHeight: 6.5
   },
   history: {
     width: 372,
